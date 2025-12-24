@@ -202,3 +202,149 @@ const GameController = (function () {
   };
 })();
 
+// Display Controller Module
+const DisplayController = (function () {
+  const gameBoardElement = document.getElementById("gameBoard");
+  const currentPlayerElement = document.getElementById("currentPlayer");
+  const gameStatusElement = document.getElementById("gameStatus");
+  const messageElement = document.getElementById("message");
+  const startBtn = document.getElementById("startBtn");
+  const restartBtn = document.getElementById("restartBtn");
+  const resetScoresBtn = document.getElementById("resetScoresBtn");
+  const player1Input = document.getElementById("player1");
+  const player2Input = document.getElementById("player2");
+
+  // Scoreboard elements
+  const player1NameElement = document.getElementById("player1Name");
+  const player1ScoreElement = document.getElementById("player1Score");
+  const player2NameElement = document.getElementById("player2Name");
+  const player2ScoreElement = document.getElementById("player2Score");
+  const tieScoreElement = document.getElementById("tieScore");
+
+  const init = () => {
+    renderBoard();
+    updateGameInfo();
+    updateScoreboard();
+    attachEventListeners();
+  };
+
+  const renderBoard = () => {
+    gameBoardElement.innerHTML = "";
+    const board = GameBoard.getBoard();
+
+    board.forEach((cell, index) => {
+      const cellElement = document.createElement("div");
+      cellElement.className = `cell ${cell.toLowerCase()}`;
+      cellElement.dataset.index = index;
+      cellElement.textContent = cell;
+
+      cellElement.addEventListener("click", () => {
+        if (GameController.isGameActive()) {
+          if (GameController.playTurn(index)) {
+            updateGameInfo();
+          }
+        }
+      });
+
+      gameBoardElement.appendChild(cellElement);
+    });
+  };
+
+  const updateGameInfo = () => {
+    const currentPlayer = GameController.getCurrentPlayer();
+    const players = GameController.getPlayers();
+
+    currentPlayerElement.textContent = `${currentPlayer.getName()} (${currentPlayer.getMarker()})`;
+    currentPlayerElement.style.color =
+      currentPlayer.getMarker() === "X" ? "#f44336" : "#2196F3";
+
+    if (GameController.isGameActive()) {
+      gameStatusElement.textContent = "Game in progress";
+      gameStatusElement.style.color = "#4CAF50";
+    } else {
+      gameStatusElement.textContent = "Game over";
+      gameStatusElement.style.color = "#f44336";
+    }
+
+    // Always enable restart button
+    restartBtn.disabled = false;
+    restartBtn.title = "Start new game (keeps scores)";
+
+    // Update input fields with current player names
+    player1Input.value = players.player1.name;
+    player2Input.value = players.player2.name;
+  };
+
+  const updateScoreboard = () => {
+    const players = GameController.getPlayers();
+
+    player1NameElement.textContent = players.player1.name;
+    player1ScoreElement.textContent = players.player1.score;
+
+    player2NameElement.textContent = players.player2.name;
+    player2ScoreElement.textContent = players.player2.score;
+
+    tieScoreElement.textContent = players.tieScore;
+  };
+
+  const highlightWinningCells = (winningCombo) => {
+    winningCombo.forEach((index) => {
+      const cell = document.querySelector(`.cell[data-index="${index}"]`);
+      if (cell) {
+        cell.classList.add("winning");
+      }
+    });
+  };
+
+  const clearWinningCells = () => {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => {
+      cell.classList.remove("winning");
+    });
+  };
+
+  const showMessage = (text) => {
+    messageElement.textContent = text;
+    messageElement.classList.add("show");
+
+    setTimeout(() => {
+      messageElement.classList.remove("show");
+    }, 3000);
+  };
+
+  const attachEventListeners = () => {
+    startBtn.addEventListener("click", () => {
+      const name1 = player1Input.value.trim() || "Player 1";
+      const name2 = player2Input.value.trim() || "Player 2";
+      GameController.startGame(name1, name2);
+    });
+
+    restartBtn.addEventListener("click", () => {
+      GameController.restartGame();
+    });
+
+    resetScoresBtn.addEventListener("click", () => {
+      GameController.resetScores();
+      showMessage("Scores have been reset!");
+    });
+
+    // Allow pressing Enter to start game
+    player1Input.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") startBtn.click();
+    });
+
+    player2Input.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") startBtn.click();
+    });
+  };
+
+  return {
+    init,
+    renderBoard,
+    updateGameInfo,
+    updateScoreboard,
+    highlightWinningCells,
+    clearWinningCells,
+    showMessage,
+  };
+})();
