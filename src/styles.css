@@ -45,3 +45,143 @@ header .subtitle {
   letter-spacing: 1px;
 }
 
+/* Player Setup Section */
+.player-setup-section {
+  background: rgba(40, 40, 55, 0.8);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 25px;
+  border: 1px solid rgba(100, 126, 234, 0.2);
+}
+
+.player-setup-section h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 1.6em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.player-setup-section h2 i {
+  color: #667eea;
+}
+
+.player-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.player-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.player-input-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #b0b0d0;
+  font-size: 1.1em;
+}
+
+.player-input-group label i {
+  color: #667eea;
+  font-size: 1.1em;
+}
+
+.player-input-group input {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(20, 20, 30, 0.8);
+  border: 2px solid rgba(100, 126, 234, 0.3);
+  border-radius: 10px;
+  font-size: 1.1em;
+  color: #ffffff;
+  transition: all 0.3s;
+}
+
+.player-input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(100, 126, 234, 0.2);
+}
+
+.player-input-group input::placeholder {
+  color: #8888a8;
+}
+
+/* Game Controls Section */
+.game-controls {
+  background: rgba(40, 40, 55, 0.8);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 25px;
+  border: 1px solid rgba(100, 126, 234, 0.2);
+  text-align: center;
+}
+
+.game-controls h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 1.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 160px;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.start-btn {
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  color: white;
+}
+
+.restart-btn {
+  background: linear-gradient(135deg, #2196f3 0%, #1565c0 100%);
+  color: white;
+}
+
+.reset-btn {
+  background: linear-gradient(135deg, #f44336 0%, #c62828 100%);
+  color: white;
+}
+
+.btn:disabled {
+  background: #555566;
+  color: #8888a8;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
