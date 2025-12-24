@@ -54,3 +54,31 @@ const GameBoard = (function () {
   };
 })();
 
+// Player Factory Function
+const createPlayer = (name, marker, initialScore = 0) => {
+  let score = initialScore;
+  let playerName = name;
+
+  const getName = () => playerName;
+  const getMarker = () => marker;
+  const getScore = () => score;
+  const incrementScore = () => score++;
+
+  const resetScore = () => {
+    score = 0;
+  };
+
+  const setName = (newName) => {
+    playerName = newName;
+  };
+
+  return {
+    getName,
+    getMarker,
+    getScore,
+    incrementScore,
+    resetScore,
+    setName,
+  };
+};
+
