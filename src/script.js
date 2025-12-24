@@ -348,3 +348,15 @@ const DisplayController = (function () {
     showMessage,
   };
 })();
+
+// Initialize game on page load
+document.addEventListener("DOMContentLoaded", () => {
+  DisplayController.init();
+
+  // Initial welcome message
+  setTimeout(() => {
+    DisplayController.showMessage(
+      'Welcome to Tic Tac Toe! Enter player names and click "Start Game".'
+    );
+  }, 500);
+});
